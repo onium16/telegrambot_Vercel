@@ -45,3 +45,8 @@ def check_req():
 @app.route("/", methods=['GET'])
 def index():
     return "<h1>Welcome to telegrambot!</h1>"
+ 
+
+@app.route("/about", methods=['GET'])
+def index():
+    return "<h1>About to telegrambot!</h1>"
