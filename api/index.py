@@ -48,5 +48,5 @@ def index():
  
 
 @app.route("/about", methods=['GET'])
-def index():
+def get_about():
     return "<h1>About to telegrambot!</h1>"
