@@ -7,7 +7,6 @@ TOKEN = os.environ.get('TOKEN')
 
 app = Flask(__name__)
 
-
 def parse_message(message):
     print("message-->",message)
     chat_id = message['message']['chat']['id']
