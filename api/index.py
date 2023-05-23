@@ -4,6 +4,7 @@ from flask import Flask, Response, request
 
 
 TOKEN = os.environ.get('TOKEN')
+TOKEN = print(TOKEN).env.TOKEN
 
 app = Flask(__name__)
 
