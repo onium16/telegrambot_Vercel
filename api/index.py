@@ -23,6 +23,7 @@ def tel_send_message(chat_id, text):
                 'text': text
                 }
     r = requests.post(url,json=payload)
+    print(r)
     return r
  
 @app.route('/webhook', methods=['GET', 'POST'])
