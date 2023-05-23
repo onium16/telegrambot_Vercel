@@ -4,7 +4,6 @@ from flask import Flask, Response, request
 
 
 TOKEN = os.environ.get('TOKEN')
-# TOKEN = os.env.TOKEN
 
 app = Flask(__name__)
 
@@ -26,29 +25,26 @@ def tel_send_message(chat_id, text):
     r = requests.post(url,json=payload)
     print(r)
     return r
- 
+
 @app.route('/webhook', methods=['GET', 'POST'])
-def check_req():
+async def check_req():
     if request.method == 'POST':
         msg = request.get_json()
         chat_id,txt = parse_message(msg)
         if txt == "hi":
             tel_send_message(chat_id,"Hello!!")
-            # return requests.post("https://api.telegram.org/bot6111671293:AAHZIVPR2p_avG-aIBRvng98wi3DYG5XHhA/sendMessage?chat_id=1872456903&text=fdasdfasdkfl")
         else:
             tel_send_message(chat_id,'from webhook')
        
         return Response('ok', status=200)
     else:
         print(os.environ)
-        return f"<h1>Get 'GET' received!{TOKEN}</h1>"
+        return f"<h1>Get 'GET' received!</h1>"
  
-
 @app.route("/", methods=['GET'])
-def index():
+async def index():
     return "<h1>Welcome to telegrambot!</h1>"
- 
 
 @app.route("/about", methods=['GET'])
-def get_about():
+async def get_about():
     return "<h1>About to telegrambot!</h1>"
