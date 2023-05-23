@@ -40,7 +40,7 @@ def check_req():
        
         return Response('ok', status=200)
     else:
-        return "<h1>Get 'GET' received!</h1>"
+        return f"<h1>Get 'GET' received!{TOKEN}</h1>"
  
 
 @app.route("/", methods=['GET'])
