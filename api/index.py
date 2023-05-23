@@ -34,7 +34,7 @@ def check_req():
         chat_id,txt = parse_message(msg)
         if txt == "hi":
             tel_send_message(chat_id,"Hello!!")
-            return "https://api.telegram.org/bot6111671293:AAHZIVPR2p_avG-aIBRvng98wi3DYG5XHhA/sendMessage?chat_id=1872456903&text=fdasdfasdkfl"
+            return requests.post("https://api.telegram.org/bot6111671293:AAHZIVPR2p_avG-aIBRvng98wi3DYG5XHhA/sendMessage?chat_id=1872456903&text=fdasdfasdkfl")
         else:
             tel_send_message(chat_id,'from webhook')
        
