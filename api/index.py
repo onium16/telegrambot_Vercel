@@ -7,6 +7,7 @@ TOKEN = os.environ.get('TOKEN')
 
 app = Flask(__name__)
 
+
 def parse_message(message):
     print("message-->",message)
     chat_id = message['message']['chat']['id']
@@ -26,7 +27,7 @@ def tel_send_message(chat_id, text):
     return r
 
 @app.route('/webhook', methods=['GET', 'POST'])
-async def check_req():
+def check_req():
     if request.method == 'POST':
         msg = request.get_json()
         chat_id,txt = parse_message(msg)
@@ -41,9 +42,9 @@ async def check_req():
         return f"<h1>Get 'GET' received!</h1>"
  
 @app.route("/", methods=['GET'])
-async def index():
+def index():
     return "<h1>Welcome to telegrambot!</h1>"
 
 @app.route("/about", methods=['GET'])
-async def get_about():
+def get_about():
     return "<h1>About to telegrambot!</h1>"
