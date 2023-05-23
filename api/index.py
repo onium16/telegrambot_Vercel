@@ -4,7 +4,7 @@ from flask import Flask, Response, request
 
 
 TOKEN = os.environ.get('TOKEN')
-TOKEN = print(TOKEN).env.TOKEN
+# TOKEN = os.env.TOKEN
 
 app = Flask(__name__)
 
@@ -31,11 +31,10 @@ def tel_send_message(chat_id, text):
 def check_req():
     if request.method == 'POST':
         msg = request.get_json()
-        
         chat_id,txt = parse_message(msg)
         if txt == "hi":
             tel_send_message(chat_id,"Hello!!")
-            return requests.post("https://api.telegram.org/bot6111671293:AAHZIVPR2p_avG-aIBRvng98wi3DYG5XHhA/sendMessage?chat_id=1872456903&text=fdasdfasdkfl")
+            # return requests.post("https://api.telegram.org/bot6111671293:AAHZIVPR2p_avG-aIBRvng98wi3DYG5XHhA/sendMessage?chat_id=1872456903&text=fdasdfasdkfl")
         else:
             tel_send_message(chat_id,'from webhook')
        
