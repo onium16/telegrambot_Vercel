@@ -41,6 +41,7 @@ def check_req():
        
         return Response('ok', status=200)
     else:
+        print(os.environ)
         return f"<h1>Get 'GET' received!{TOKEN}</h1>"
  
 
