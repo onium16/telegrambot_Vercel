@@ -1,6 +1,6 @@
 import os
 import requests
-from flask import Flask, Response, request
+from flask import Flask, Response, render_template, request
 
 
 TOKEN = os.environ.get('TOKEN')
@@ -23,7 +23,6 @@ def tel_send_message(chat_id, text):
                 'text': text
                 }
     r = requests.post(url,json=payload)
-    print(r)
     return r
 
 @app.route('/webhook', methods=['GET', 'POST'])
@@ -35,15 +34,13 @@ def check_req():
             tel_send_message(chat_id,"Hello!!")
         else:
             tel_send_message(chat_id,'from webhook')
-       
         return Response('ok', status=200)
     else:
-        print(os.environ)
-        return f"<h1>Get 'GET' received!</h1>"
+        return render_template("/index.html") 
  
 @app.route("/", methods=['GET'])
 def index():
-    return "<h1>Welcome to telegrambot!</h1>"
+    return render_template("/webhook.html") 
 
 @app.route("/about", methods=['GET'])
 def get_about():
