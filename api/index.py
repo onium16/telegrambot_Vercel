@@ -36,11 +36,11 @@ def check_req():
             tel_send_message(chat_id,'from webhook')
         return Response('ok', status=200)
     else:
-        return render_template("/index.html") 
+        return render_template("/webhook.html") 
  
 @app.route("/", methods=['GET'])
 def index():
-    return render_template("/webhook.html") 
+    return render_template("/index.html") 
 
 @app.route("/about", methods=['GET'])
 def get_about():
