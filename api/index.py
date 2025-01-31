@@ -4,6 +4,7 @@ from flask import Flask, Response, request, jsonify
 
 # Получаем токен из переменных окружения
 TOKEN = os.getenv('TOKEN')
+vercel_url = os.environ.get('VERCEL_URL')
 if not TOKEN:
     raise ValueError("Bot token is not set in environment variables!")
 
@@ -24,6 +25,18 @@ def parse_message(message):
     print("txt -->", txt)
 
     return chat_id, txt
+
+@app.route('/setwebhook', methods=['POST'])
+def setwebhook():
+    webhook_url = f"https://api.telegram.org/bot{TOKEN}/setWebhook?url={vercel_url}/webhook"
+    response = requests.get(webhook_url)
+    
+    if response.status_code == 200:
+            return "Webhook successfully set", 200
+    else:
+            return f"Error setting webhook: {response.text}", response.status_code
+    else:
+        return "Vercel URL not found", 400
 
 def tel_send_message(chat_id, text):
     """ Отправка сообщения в Telegram """
