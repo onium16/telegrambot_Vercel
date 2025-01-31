@@ -4,7 +4,7 @@ from flask import Flask, Response, request, jsonify
 
 # Получаем токен из переменных окружения
 TOKEN = os.getenv('TOKEN')
-vercel_url = os.environ.get('VERCEL_URL')
+
 if not TOKEN:
     raise ValueError("Bot token is not set in environment variables!")
 
@@ -29,7 +29,7 @@ def parse_message(message):
 @app.route('/setwebhook', methods=['POST', 'GET'])
 def setwebhook():
     if request.method == 'POST':
-        webhook_url = f"https://api.telegram.org/bot{TOKEN}/setWebhook?url={vercel_url}/webhook"
+        webhook_url = f"https://api.telegram.org/bot{TOKEN}/setWebhook?url={os.environ.get('VERCEL_URL')}/webhook"
         response = requests.get(webhook_url)
         
         if response.status_code == 200:
