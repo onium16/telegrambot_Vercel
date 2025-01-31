@@ -32,11 +32,11 @@ def setwebhook():
     response = requests.get(webhook_url)
     
     if response.status_code == 200:
-            return "Webhook successfully set", 200
+        return "Webhook successfully set", 200
     else:
-            return f"Error setting webhook: {response.text}", response.status_code
-    else:
-        return "Vercel URL not found", 400
+        return f"Error setting webhook: {response.text}", response.status_code
+    return "Vercel URL not found", 400
+
 
 def tel_send_message(chat_id, text):
     """ Отправка сообщения в Telegram """
