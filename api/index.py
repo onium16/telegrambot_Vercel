@@ -26,16 +26,19 @@ def parse_message(message):
 
     return chat_id, txt
 
-@app.route('/setwebhook', methods=['POST'])
+@app.route('/setwebhook', methods=['POST', 'GET'])
 def setwebhook():
-    webhook_url = f"https://api.telegram.org/bot{TOKEN}/setWebhook?url={vercel_url}/webhook"
-    response = requests.get(webhook_url)
-    
-    if response.status_code == 200:
-        return "Webhook successfully set", 200
+    if request.method == 'POST':
+        webhook_url = f"https://api.telegram.org/bot{TOKEN}/setWebhook?url={vercel_url}/webhook"
+        response = requests.get(webhook_url)
+        
+        if response.status_code == 200:
+            return "Webhook successfully set", 200
+        else:
+            return f"Error setting webhook: {response.text}", response.status_code
     else:
-        return f"Error setting webhook: {response.text}", response.status_code
-    return "Vercel URL not found", 400
+        return "Vercel URL not found", 400
+
 
 
 def tel_send_message(chat_id, text):
