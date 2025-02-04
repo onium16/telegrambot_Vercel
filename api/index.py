@@ -72,7 +72,7 @@ def webhook():
 
 @app.route("/", methods=['GET'])
 def index():
-    return "<h1>Telegram Bot Webhook is Running</h1>"
+    return f"<h1>Telegram Bot Webhook is Running,urp is {os.environ('VERCEL_URL')}</h1>"
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)), debug=True)
