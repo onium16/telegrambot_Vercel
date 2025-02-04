@@ -45,7 +45,8 @@ def tel_send_message(chat_id, text):
         "chat_id": chat_id,
         "text": text
     }
- 
+    response = requests.post(url, json=payload)
+
     if response.status_code != 200:
         print("Ошибка отправки сообщения:", response.text)
 
@@ -59,6 +60,7 @@ def webhook():
     chat_id, txt = parse_message(msg)
     if chat_id is None or txt is None:
         return jsonify({"status": "ignored"}), 200
+
     if txt.lower() == "hi":
         tel_send_message(chat_id, "Hello!!")
     else:
@@ -71,4 +73,5 @@ def index():
     return "<h1>Telegram Bot Webhook is Running</h1>"
 
 if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)), debug=True)
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)), debug=True)
