@@ -46,7 +46,7 @@ def tel_send_message(chat_id, text,reply_markup=None):
         "chat_id": chat_id,
         "text": text
     }
-   if reply_markup:
+    if reply_markup:
         payload["reply_markup"] = json.dumps(reply_markup) 
     response = requests.post(url, json=payload)
 
