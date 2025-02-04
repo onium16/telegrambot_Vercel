@@ -38,13 +38,15 @@ def setwebhook():
     return "Vercel URL not found", 400
 
 
-def tel_send_message(chat_id, text):
+def tel_send_message(chat_id, text,reply_markup=None):
     """ Отправка сообщения в Telegram """
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
     payload = {
         "chat_id": chat_id,
         "text": text
     }
+    if reply_markup:
+        payload["reply_markup"] = reply_markup 
     response = requests.post(url, json=payload)
 
     if response.status_code != 200:
@@ -60,9 +62,17 @@ def webhook():
     chat_id, txt = parse_message(msg)
     if chat_id is None or txt is None:
         return jsonify({"status": "ignored"}), 200
-
+   
     if txt.lower() == "hi":
-        tel_send_message(chat_id, "Hello!!")
+        # Создаем inline-клавиатуру с одной кнопкой
+        inline_keyboard = {
+            "inline_keyboard": [
+                [
+                    {"text": "Нажми меня", "url": "https://example.com"}
+                ]
+            ]
+        }
+        tel_send_message(chat_id, "Hello!!", reply_markup=inline_keyboard)
     else:
         tel_send_message(chat_id, "from webhook")
 
