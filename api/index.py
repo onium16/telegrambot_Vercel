@@ -66,7 +66,7 @@ def webhook():
         return jsonify({"status": "ignored"}), 200
 
     if txt.lower() == "hi":
-        # Исправленный формат inline-клавиатуры
+        # Переменная должна быть объявлена перед использованием
         reply_markup = {
             "inline_keyboard": [
                 [   
@@ -81,11 +81,11 @@ def webhook():
                 ]
             ]
         }
-        tel_send_message(chat_id, "Hello!!", reply_markup=reply_markup)
+        tel_send_message(chat_id, "Hello!!", reply_markup=reply_markup)  # Явное указание аргумента
     else:
         tel_send_message(chat_id, "from webhook")
 
-    return Response('ok', status=200)
+    return Response('ok', status=200
 
 @app.route("/", methods=['GET'])
 def index():
