@@ -78,7 +78,7 @@ def webhook():
                     callback_data: "btn_no"
                     },
             ] ]  }
-        tel_send_message(chat_id, "Hello!!", reply_markup=inline_keyboard)
+        tel_send_message(chat_id, "Hello!!", reply_markup)
     else:
         tel_send_message(chat_id, "from webhook")
 
