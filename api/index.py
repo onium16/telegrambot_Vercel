@@ -69,7 +69,7 @@ def webhook():
         inline_keyboard = {
             "inline_keyboard": [
                 [
-                    {"text": "Нажми меня", "url": "https://example.com"}
+                    {"text": "Нажми меня", "callback_data": "button_clicked"}
                 ]
             ]
         }
