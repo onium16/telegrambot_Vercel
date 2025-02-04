@@ -39,7 +39,7 @@ def setwebhook():
     return "Vercel URL not found", 400
 
 
-def tel_send_message(chat_id, text,reply_markup=None):
+def tel_send_message(chat_id, text, reply_markup=None):
     """ Отправка сообщения в Telegram """
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
     payload = {
@@ -47,7 +47,8 @@ def tel_send_message(chat_id, text,reply_markup=None):
         "text": text
     }
     if reply_markup:
-        payload["reply_markup"] = json.dumps(reply_markup) 
+        payload["reply_markup"] = json.dumps(reply_markup)  # Telegram требует строку JSON
+    
     response = requests.post(url, json=payload)
 
     if response.status_code != 200:
@@ -63,21 +64,23 @@ def webhook():
     chat_id, txt = parse_message(msg)
     if chat_id is None or txt is None:
         return jsonify({"status": "ignored"}), 200
-   
+
     if txt.lower() == "hi":
-        # Создаем inline-клавиатуру с одной кнопкой
-        reply_markup: {
-        inline_keyboard: [
-            [   
-                {
-                    text: "Yes",
-                    callback_data: "btn_yes"
-                },
-                {
-                    text: "No",
-                    callback_data: "btn_no"
+        # Исправленный формат inline-клавиатуры
+        reply_markup = {
+            "inline_keyboard": [
+                [   
+                    {
+                        "text": "Yes",
+                        "callback_data": "btn_yes"
                     },
-            ] ]  }
+                    {
+                        "text": "No",
+                        "callback_data": "btn_no"
+                    }
+                ]
+            ]
+        }
         tel_send_message(chat_id, "Hello!!", reply_markup)
     else:
         tel_send_message(chat_id, "from webhook")
