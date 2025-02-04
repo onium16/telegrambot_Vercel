@@ -66,13 +66,18 @@ def webhook():
    
     if txt.lower() == "hi":
         # Создаем inline-клавиатуру с одной кнопкой
-        inline_keyboard = {
-            "inline_keyboard": [
-                [
-                    {"text": "Нажми меня", "callback_data": "button_clicked"}
-                ]
-            ]
-        }
+        reply_markup: {
+        inline_keyboard: [
+            [   
+                {
+                    text: "Yes",
+                    callback_data: "btn_yes"
+                },
+                {
+                    text: "No",
+                    callback_data: "btn_no"
+                    },
+            ] ]  }
         tel_send_message(chat_id, "Hello!!", reply_markup=inline_keyboard)
     else:
         tel_send_message(chat_id, "from webhook")
