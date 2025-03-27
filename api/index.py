@@ -1,7 +1,8 @@
 import os
 import requests
 from dotenv import load_dotenv 
-from flask import Flask, Response, render_template, request
+from flask import Flask, Response, render_template, request, jsonify
+
 
 load_dotenv()
 
@@ -55,6 +56,11 @@ def check_req():
 def index():
     # Pass the logs to the index page
     return render_template("index.html", message_logs=message_logs)
+
+@app.route("/logs", methods=["GET"])
+def get_logs():
+    # Return the message logs in JSON format
+    return jsonify(message_logs)
 
 @app.route("/about", methods=['GET'])
 def get_about():
