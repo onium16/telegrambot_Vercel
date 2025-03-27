@@ -42,13 +42,41 @@ To set up the project locally, follow these steps:
    pip install -r requirements.txt
    ```
 
+## Get a token from @BotFather
 
-## Running Locally
+To get a token from @BotFather, follow these steps:
 
-```bash
-npm i -g vercel
-vercel dev
-```
+1. Create a new bot using @BotFather.
+2. Get the token from the bot's settings.
+
+## Deploying to Vercel
+
+To deploy the Flask application to Vercel, follow these steps:
+
+1. Create a new Vercel project.
+2. Deploy the Flask application to Vercel.
+3. Set the `TOKEN` environment variable in Vercel.
+4. Deploy the Vercel project.
+
+
+## Deploying to Vercel (First method with Vercel CLI)
+
+To deploy the project, use the following commands:
+
+1. Install Vercel CLI globally:
+   ```bash
+   npm i -g vercel
+   ```
+2. Deploy in testing mode:
+   ```bash
+   vercel
+   ```
+3. Deploy in production mode:
+   ```bash
+   vercel --prod
+   ```
+
+After executing `vercel --prod`, Vercel will generate a permanent URL for the Telegram webhook.
 
 Your Flask application is now available at `http://localhost:3000`.
 
@@ -56,14 +84,22 @@ Your Flask application is now available at `http://localhost:3000`.
 
 You can use [Vercel CLI](https://vercel.com/cli) to register your application in Vercel.
 
-AND in [https://vercel.com/](https://vercel.com/)-projects/telegram-vercel-bot-2-0/settings/environment-variables
-add `TOKEN` for Telegram Bot
-AND RELOAD VERCEL container.
+AND in [https://vercel.com/](https://vercel.com/)-projects/telegram-image-reposter-2-0/settings/environment-variables add `TOKEN` for Telegram Bot AND RELOAD VERCEL container.
+
+
+## Alternative: Deploy via GitHub Integration
+
+1. Go to [Vercel Dashboard](https://vercel.com/dashboard).
+2. Click **"Add New Project"**.
+3. Select your GitHub repository.
+4. Follow the instructions to complete the setup.
+
+Now, every time you push changes to GitHub, Vercel will automatically redeploy the project.
 
 ## Register webhook in Telegram
 
 ```bash
-curl "https://api.telegram.org/bot<TOKEN>/setWebhook?url=https://telegram-vercel-bot-2-0-nvqrweklj-onium16s-projects.vercel.app/webhook"
+curl "https://api.telegram.org/bot<TOKEN>/setWebhook?url=https://<app_name>.vercel.app/webhook"
 ```
 
 Response:
@@ -83,15 +119,16 @@ curl "https://api.telegram.org/bot<TOKEN>/getWebhookInfo"
 Expected response should include:
 
 ```json
-{"ok":true, "result": {"url": "https://telegram-vercel-bot-2-0-nvqrweklj-onium16s-projects.vercel.app/webhook"}}
+{"ok":true, "result": {"url": "https://<app_name>.vercel.app/webhook"}}
 ```
+
 
 ## Debugging & Troubleshooting
 
 ### 1. Check Vercel Logs
 
 ```bash
-vercel logs telegram-vercel-bot-2-0
+vercel logs telegram-image-reposter-2-0
 ```
 
 ### 2. Test Webhook Locally
@@ -99,21 +136,31 @@ vercel logs telegram-vercel-bot-2-0
 ```bash
 curl -X POST -H "Content-Type: application/json" \
 -d '{"message": {"chat": {"id": 123456}, "text": "hi"}}' \
-http://127.0.0.1:5000/webhook
+ttps://<app_name>.vercel.app/webhook
 ```
 
 Expected response: `Hello!!`
 
 If the bot is not responding, ensure your `TOKEN` is correctly set in the Vercel environment and that Flask receives Telegram requests properly.
 
+## Remove Old Deployments
+
+To remove old deployments and keep only the latest one:
+
+1. List all deployments:
+   ```bash
+   vercel list telegram-image-reposter-2-0
+   ```
+2. Identify the outdated deployments and delete them:
+   ```bash
+   vercel remove <DEPLOYMENT_ID>
+   ```
+   Replace `<DEPLOYMENT_ID>` with the ID of the deployment you want to remove.
+3. Confirm the deletion by listing deployments again:
+   ```bash
+   vercel list telegram-image-reposter-2-0
+   ```
+
 ## One-Click Deploy
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github\&utm_medium=readme\&utm_campaign=vercel-examples):
-
-
-
-## One-Click Deploy
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fflask&demo-title=Flask%20%2B%20Vercel&demo-description=Use%20Flask%202%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fflask-python-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994156/random/flask.png)
+Deploy the example using [Vercel](https://vercel.com)
