@@ -1,12 +1,16 @@
 import os
 import requests
+from dotenv import load_dotenv 
+
 from flask import Flask, Response, render_template, request
 
+load_dotenv()
 
-TOKEN = os.environ.get('TOKEN')
+TOKEN = os.getenv('TOKEN')
+if not TOKEN:
+    raise ValueError("TOKEN is not set")
 
 app = Flask(__name__)
-
 
 def parse_message(message):
     print("message-->",message)
@@ -29,6 +33,7 @@ def tel_send_message(chat_id, text):
 def check_req():
     if request.method == 'POST':
         msg = request.get_json()
+        print("Received message:", msg)  # Лог для проверки
         chat_id,txt = parse_message(msg)
         if txt == "hi":
             tel_send_message(chat_id,"Hello!!")
