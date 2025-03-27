@@ -28,7 +28,20 @@
     <div class="container">
         <h1>Welcome to the Telegram Bot Page</h1>
         <h2 class="text-muted">Here you can view the logs!</h2>
+        <div class="container">
+            <h1>Telegram Bot Logs</h1>
+            <h2 class="text-muted">Here are the messages received and sent:</h2>
 
+            <div class="card mt-4">
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for log in message_logs %}
+                            <li class="list-group-item">{{ log }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
         <div class="card p-3">
             <h4>Webhook Status:</h4>
             <p>Everything is working correctly ✅</p>
